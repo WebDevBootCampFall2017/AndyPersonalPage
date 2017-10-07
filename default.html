@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<base target="frame">
+		<meta charset="utf-8">
+		<title>My Page</title>
+		<link rel="stylesheet" href="css/main.css">
+		<script type="text/javascript" src="js/main.js"></script>
+	</head>
+	<body onload="setup()">
+		<header>It's All About Me</header>
+		<div class="content">
+			<div class="leftside">
+				<div class="image">
+					
+						<span class="buffer">spacer</span>
+						<img alt="Mandalorian Mythosaur skull" width="70px" height="70px" src="images/images.jpg">
+						<span class="buffer">spacer</span>
+					
+				</div>
+				<nav>
+					<br>
+					<a href="default.html">About Me</a>
+					<br>
+					<a href="resume.html">My Resume</a>
+					<p>
+						<a href="https://github.com/search?utf8=%E2%9C%93&q=user%3Aandy4274&type=Repositories&ref=advsearch&l=&l=">My GitHub Repositories</a>
+						<br>
+						My Class Projects
+						<br>
+						<a href="https://github.com/WebDevBootCampFall2017/Andy-connect-4">Connect4</a>
+						<br>
+						<a href="https://github.com/WebDevBootCampFall2017/AndyTextEditor">Text Editor</a>
+					</p>
+					<p>My Android Apps
+						<br>
+						<a href="https://play.google.com/store/apps/details?id=com.jassoftware.numbersgame">Numbers Game</a>
+						<br>
+						<a href="https://play.google.com/store/apps/details?id=com.jassoftware.textmeeting">TextMeeting</a>
+						<br>
+						<a href="https://play.google.com/store/apps/details?id=com.jassoftware.quicktext">QuickText</a>
+					</p>
+					<p>Stuff I like
+						<br>
+						<a href="http://www.raiders.com">My Team</a>
+						<br>
+						<a href="https://www.gog.com/">Where I buy games</a>
+					</p>
+				</nav>
+			</div>
+			<div class="main_content" id="main">
+			<p> This is where I tell you all about me.</p>
+			</div>
+		
+		</div>
+		<div class="footer">
+			<p>These buttons control the background fade.</p>
+			<div class="footer_bar">
+			<div class="footer_bar_member">Start and Pause:<br>
+				<button onclick="startFade()" id="start">Start Fade</button>
+			</div>
+			<div class="footer_bar_member">Color and speed:<br>
+				<button onclick="cycleRed()" id="redButton">Turn off Red</button>&nbsp&nbsp&nbsp
+				<button onclick="cycleGreen()" id="greenButton">Turn off Green</button>&nbsp&nbsp&nbsp
+				<button onclick="cycleBlue()" id="blueButton">Turn off Blue</button><br>
+			</div>
+			<div class="footer_bar_member">
+				Set color step size:<br><input type="number" min="1" max="25" name="size" value="1" id="size" onchange="changeSize()"><br>
+			</div>
+			<div class="footer_bar_member">Text Color Options:<br>
+			<button onclick="redText()" id="redTextButton">Red Text</button>&nbsp&nbsp&nbsp
+			<button onclick="greenText()" id="greenTextButton">Green Text</button>&nbsp&nbsp&nbsp
+			<button onclick="blueText()" id="blueTextButton">Blue Text</button>&nbsp&nbsp&nbsp
+			<button onclick="greyText()" id="greyTextButton">Grey Text</button>
+			</div>
+			</div>
+		</div>
+		
+	</body>
+</html>
