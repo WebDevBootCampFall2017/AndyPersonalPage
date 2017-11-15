@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+	<title>Tic Tac Toe!</title>
+	<!--jQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!--Bootstrap-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!--Angular-->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+	<!--jerkyAPI-->
+	<script src="js/tictactoeAPI.js"></script>
+	<style>
+	h1 {
+		text-align: center;
+	}
+	table {
+		border: 1px solid black;
+		margin-right: auto;
+		margin-left: auto;
+		cursor: pointer;
+	}
+	td {
+		border: 1px solid black;
+		text-align: center;
+	}
+	th {
+		border: 1px solid black;
+		padding: 2px;
+	}
+	:disabled {
+		color: white;
+		background-color: darkred;
+	}
+	.board:enabled;{
+		color: white;
+		background-color: white;
+	}
+	.board {
+		color: white;
+		background-color: white;
+		-webkit-tap-highlight-color: white;
+		-webkit-appearance: ;
+	}
+	.played {
+		color: white;
+		background-color: darkred;
+	}
+	.centered {
+		text-align: center;
+	}
+	</style>
+</head>
+<body <!--ng-app="tictactoe", ngcontroller="tictactoeCtrl"--> 
+	<div class="container">
+		<div class="row">
+			<div class="jumbotron">
+				<h1>Let's Play Tic Tac Toe!</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4" style="text-align: right;">
+				<h3>Player 1</h3>
+				<h4 id="XName">  </h4>
+				<h2>X</h2>
+				<p>Score: 
+					<textarea id ="p1" rows="1" cols="3" readonly="readonly" disabled="disabled" ></textarea>
+				</p>
+				<p><input id="X" type="text"  placeholder="type your name here" onchange="XChanged()" autofocus="autofocus">
+			</div>
+			<div class="col-sm-4">
+				<div class="jumbotron" id="winner"></div>
+				<!-- draw the board here -->
+				<h3 class="centered">Tic Tac Toe</h3>
+				<table id="Board">
+					<tr>
+						<td id="cell0" class="board" onclick="doMove(0)">&nbsp;B&nbsp;</td>
+						<td id="cell1" class="board" onclick="doMove(1)">&nbsp;B&nbsp;</td>
+						<td id="cell2" class="board" onclick="doMove(2)">&nbsp;B&nbsp;</td>
+					</tr>
+					<tr>
+						<td id="cell3" class="board" onclick="doMove(3)">&nbsp;B&nbsp;</td>
+						<td id="cell4" class="board" onclick="doMove(4)">&nbsp;B&nbsp;</td>
+						<td id="cell5" class="board" onclick="doMove(5)">&nbsp;B&nbsp;</td>
+					</tr>
+					<tr>
+						<td id="cell6" class="board" onclick="doMove(6)">&nbsp;B&nbsp;</td>
+						<td id="cell7" class="board" onclick="doMove(7)">&nbsp;B&nbsp;</td>
+						<td id="cell8" class="board" onclick="doMove(8)">&nbsp;B&nbsp;</td>
+					</tr>
+				</table><p></p>
+				<p class="centered"><button id="start" onclick="startGame()">Start the game!</button></p>
+				
+				<h4 id="turn" class="centered">It is <span id="currPlayer" ></span>'s turn</h4>
+				<h4 id="turnLabel" class="centered"><span id="count"></span> turns taken.</h4>
+			</div>
+			<div class="col-sm-4">
+				<h3>Player 2</h3>
+				<h4 id="OName"></h4>
+				<h2>O</h2>
+				<p>Score: 
+					<textarea id="p2" type="number" disabled="" rows="1"cols="3"></textarea>
+				</p>
+				<p><input id="O" type="text" placeholder="type your name here" onchange="OChanged()"></p>
+				<p><label>Computer plays as player 2: <input type="checkbox" id="compPlayer" onchange="checkboxToggle()" value="computer"></label>
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<div class="alert alert-warning">
+					<p class="centered">Do not hit reload.<br>You will lose your names and scores.</p>
+				</div>
+			</div>
+			<div class="col-sm-4"></div>
+		</div>
+	</div>
+<div id="debug">
+	<table>
+		<tr>
+			<th> cell0 </th>
+			<th> cell1 </th>
+			<th> cell2 </th>
+			<th> cell3 </th>
+			<th> cell4 </th>
+			<th> cell5 </th>
+			<th> cell6 </th>
+			<th> cell7 </th>
+			<th> cell8 </th>
+		</tr>
+		<tr>
+			<td id="c0"> &nbsp;</td>
+			<td id="c1"> &nbsp;</td>
+			<td id="c2"> &nbsp;</td>
+			<td id="c3"> &nbsp;</td>
+			<td id="c4"> &nbsp;</td>
+			<td id="c5"> &nbsp;</td>
+			<td id="c6"> &nbsp;</td>
+			<td id="c7"> &nbsp;</td>
+			<td id="c8"> &nbsp;</td>
+		</tr>
+	</table>
+</div>
+<script type="text/javascript">
+	Init();	
+	console.log("Init returned.");
+	//var app = angular.module("tictactoe",[]);
+	//console.log("app created.");
+/*	app.controller('tictactoeCtrl', function($scope) {
+		console.log("tictactoeCtrl constructor called.");
+		$scope.player=$scope.player1;
+		$scope.startGame() = function() {
+			player = $scope.player1;
+			started=true;
+		};
+		$scope.p2Comp=false;
+		$scope.getboard = function (index) {
+			return cells[index];
+		};
+		$scope.move0 = function () {
+			doMove($scope.player,0);
+		};
+		$scope.move1 = function () {
+			doMove($scope.player,1);
+		}
+		$scope.move2 = function () {
+			doMove($scope.player,2);
+		};
+		$scope.move3 = function () {
+			doMove($scope.player,3);
+		};
+		$scope.move4 = function () {
+			doMove($scope.player,4);
+		};
+		$scope.move5 = function () {
+			doMove($scope.player,5);
+		};
+		$scope.move6 = function () {
+			doMove($scope.player,6);
+		};
+		$scope.move7 = function () {
+			doMove($scope.player,7);
+		};
+		$scope.move8 = function () {
+			doMove($scope.player,8);
+		};
+	});
+*/
+</script>
+</body>
+</html>
